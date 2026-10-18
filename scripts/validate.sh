@@ -34,7 +34,7 @@ for skill_dir in "$SKILLS_DIR"/*/; do
                     echo "  ✓ name field found"
                 else
                     echo "  ✗ name field missing in SKILL.md"
-                    ((errors++))
+                    errors=$((errors + 1))
                 fi
                 
                 # Check for description field
@@ -42,15 +42,15 @@ for skill_dir in "$SKILLS_DIR"/*/; do
                     echo "  ✓ description field found"
                 else
                     echo "  ✗ description field missing in SKILL.md"
-                    ((errors++))
+                    errors=$((errors + 1))
                 fi
             else
                 echo "  ✗ YAML frontmatter missing (should start with ---)"
-                ((errors++))
+                errors=$((errors + 1))
             fi
         else
             echo "  ✗ SKILL.md missing (required)"
-            ((errors++))
+            errors=$((errors + 1))
         fi
         
         # Check for README.md
@@ -58,7 +58,7 @@ for skill_dir in "$SKILLS_DIR"/*/; do
             echo "  ✓ README.md exists"
         else
             echo "  ⚠ README.md missing (recommended)"
-            ((warnings++))
+            warnings=$((warnings + 1))
         fi
         
         # Check for dependency file
@@ -66,7 +66,7 @@ for skill_dir in "$SKILLS_DIR"/*/; do
             echo "  ✓ Dependency file exists"
         else
             echo "  ⚠ No dependency file (pyproject.toml or package.json)"
-            ((warnings++))
+            warnings=$((warnings + 1))
         fi
         
         # Check for evals directory (recommended)
